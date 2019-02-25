@@ -5,7 +5,6 @@ public class WordAppearance implements Comparable<WordAppearance>{
 	private String word;
 	private int appearances;
 	
-
 	public WordAppearance(String word) {
 		this(word, 1);
 	}

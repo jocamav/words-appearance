@@ -66,7 +66,7 @@ public class DefaultWordService implements WordService{
 		}
 		log.info(String.format("Checking word: %s", word));
 		WordAppearance wordAppearance = wordsMap.get(word);
-		if(wordsMap.get(word) == null) {
+		if(wordAppearance == null) {
 			wordsMap.put(word, new WordAppearance(word));
 		}
 		else {

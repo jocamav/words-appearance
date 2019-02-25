@@ -40,7 +40,6 @@ public class DefaultWordServiceTest {
 		assertThat(phraseStatistics.get(2).getAppearances()).isEqualTo(1);
 	}
 	
-
 	@Test
 	public void getStatisticsOfSentence() {
 		String sentence = "Dorothy, dorothy saw a quasi-bird creature which terrified her.";
@@ -72,6 +71,23 @@ public class DefaultWordServiceTest {
 		
 		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(multipartFile);
 		assertThat(phraseStatistics.size()).isEqualTo(0);
+	}
+	
+
+	@Test
+	public void getStatisticsOfHelloWorldFromFile() {
+		String textFile = "World hello my-friend!";
+		MultipartFile multipartFile = new MockMultipartFile("file.txt", textFile.getBytes());
+		
+		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(multipartFile);
+		
+		assertThat(phraseStatistics.size()).isEqualTo(3);
+		assertThat(phraseStatistics.get(0).getWord()).isEqualTo("hello");
+		assertThat(phraseStatistics.get(0).getAppearances()).isEqualTo(1);
+		assertThat(phraseStatistics.get(1).getWord()).isEqualTo("my-friend");
+		assertThat(phraseStatistics.get(1).getAppearances()).isEqualTo(1);
+		assertThat(phraseStatistics.get(2).getWord()).isEqualTo("world");
+		assertThat(phraseStatistics.get(2).getAppearances()).isEqualTo(1);
 	}
 	
 	@Test
