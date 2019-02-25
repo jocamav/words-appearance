@@ -19,16 +19,8 @@ public class WordAppearance implements Comparable<WordAppearance>{
 		return word;
 	}
 
-	public void setWord(String word) {
-		this.word = word;
-	}
-
 	public int getAppearances() {
 		return appearances;
-	}
-
-	public void setAppearances(int appearances) {
-		this.appearances = appearances;
 	}
 	
 	public void increaseAppearances() {
@@ -44,11 +36,5 @@ public class WordAppearance implements Comparable<WordAppearance>{
 			return diffAppearances;
 		}
 	}
-
-	@Override
-	public String toString() {
-		return String.format("WordAppearance [word=%s,appearances=%s]", word, appearances);
-	}
-	
 
 }

@@ -44,6 +44,10 @@ public class DefaultWordServiceTest {
 	public void getStatisticsOfSentence() {
 		String sentence = "Dorothy, dorothy saw a quasi-bird creature which terrified her.";
 		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(sentence);
+		checkStatisticsOfDorothySentence(phraseStatistics);
+	}
+	
+	private void checkStatisticsOfDorothySentence(List<WordAppearance> phraseStatistics) {
 		assertThat(phraseStatistics.size()).isEqualTo(8);
 		assertThat(phraseStatistics.get(0).getWord()).isEqualTo("dorothy");
 		assertThat(phraseStatistics.get(0).getAppearances()).isEqualTo(2);
@@ -73,7 +77,6 @@ public class DefaultWordServiceTest {
 		assertThat(phraseStatistics.size()).isEqualTo(0);
 	}
 	
-
 	@Test
 	public void getStatisticsOfHelloWorldFromFile() {
 		String textFile = "World hello my-friend!";
@@ -96,22 +99,24 @@ public class DefaultWordServiceTest {
 		MultipartFile multipartFile = new MockMultipartFile("file.txt", textFile.getBytes());
 		
 		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(multipartFile);
-		assertThat(phraseStatistics.size()).isEqualTo(8);
-		assertThat(phraseStatistics.get(0).getWord()).isEqualTo("dorothy");
-		assertThat(phraseStatistics.get(0).getAppearances()).isEqualTo(2);
-		assertThat(phraseStatistics.get(1).getWord()).isEqualTo("a");
-		assertThat(phraseStatistics.get(1).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(2).getWord()).isEqualTo("creature");
-		assertThat(phraseStatistics.get(2).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(3).getWord()).isEqualTo("her");
-		assertThat(phraseStatistics.get(3).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(4).getWord()).isEqualTo("quasi-bird");
-		assertThat(phraseStatistics.get(4).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(5).getWord()).isEqualTo("saw");
-		assertThat(phraseStatistics.get(5).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(6).getWord()).isEqualTo("terrified");
-		assertThat(phraseStatistics.get(6).getAppearances()).isEqualTo(1);
-		assertThat(phraseStatistics.get(7).getWord()).isEqualTo("which");
-		assertThat(phraseStatistics.get(7).getAppearances()).isEqualTo(1);
+		checkStatisticsOfDorothySentence(phraseStatistics);
+	}
+	
+	@Test
+	public void getStatisticsOfSentenceFromFileWithSeveralLines() {
+		String textFile = "Dorothy, dorothy saw a quasi-bird. \n creature which terrified her.";
+		MultipartFile multipartFile = new MockMultipartFile("file.txt", textFile.getBytes());
+		
+		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(multipartFile);
+		checkStatisticsOfDorothySentence(phraseStatistics);
+	}
+
+	@Test
+	public void getStatisticsFromInvalidFile() {
+		MultipartFile multipartFile = null;
+		
+		List<WordAppearance> phraseStatistics = wordService.getPhraseStatistics(multipartFile);
+
+		assertThat(phraseStatistics.size()).isEqualTo(0);
 	}
 }
