@@ -1,24 +1,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-	<div th:if="${words}">
-		<h2>There are <span th:text="${words.size()}"/> different words!</h2>
+	<div>
+		<h1>Count the number of words of a file</h1>
 	</div>
-	
+
+	<div th:if="${words}">
+		<h2>
+			There are <span th:text="${words.size()}" /> different words!
+		</h2>
+	</div>
+
 	<div>
 		<form method="POST" enctype="multipart/form-data" action="/">
 			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+				<tr>
+					<td>File to upload:</td>
+					<td><input type="file" name="file" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Upload" /></td>
+				</tr>
 			</table>
 		</form>
 	</div>
-	
+
 	<div>
 		<ul>
-			<li th:each="word : ${words}">
-				<span th:text="${word.word}"></span> - <span th:text="${word.appearances}"></span>
-			</li>
+			<li th:each="word : ${words}"><span th:text="${word.word}"></span>
+				- <span th:text="${word.appearances}"></span></li>
 		</ul>
 	</div>
 
